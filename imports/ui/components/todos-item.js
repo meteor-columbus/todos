@@ -31,6 +31,9 @@ Template.Todos_item.helpers({
   editingClass(editing) {
     return editing && 'editing';
   },
+  importantClass(todo) {
+    return todo.important && 'important-text';
+  },
 });
 
 Template.Todos_item.events({

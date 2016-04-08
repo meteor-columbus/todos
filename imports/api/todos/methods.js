@@ -6,6 +6,7 @@ import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 
 import { Todos } from './todos.js';
 import { Lists } from '../lists/lists.js';
+import { Important } from './importanthelper.js';
 
 export const insert = new ValidatedMethod({
   name: 'todos.insert',
@@ -21,12 +22,14 @@ export const insert = new ValidatedMethod({
         'Cannot add todos to a private list that is not yours');
     }
 
-    const todo = {
+    const cleanTextImportant = Important.clean(text);
+    let todo = {
       listId,
-      text,
       checked: false,
       createdAt: new Date(),
     };
+
+    _.extend(todo, cleanTextImportant);
 
     Todos.insert(todo);
   },

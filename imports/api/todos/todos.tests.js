@@ -34,6 +34,15 @@ if (Meteor.isServer) {
       assert.equal(todo.createdAt.getTime(), createdAt.getTime());
     });
 
+    it('has an important field which defaults to false', function () {
+      let todo = Factory.create('todo');
+
+      const value = false;
+
+      todo = Todos.findOne(todo._id);
+      assert.equal(todo.important, value);
+    });
+
     describe('publications', function () {
       let publicList;
       let privateList;
